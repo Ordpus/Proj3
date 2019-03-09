@@ -2,17 +2,17 @@
 #include "word_map.h"
 #include <string.h>
 
-int hash(Entry* entry) {
+unsigned int hash(Entry* entry) {
   entry->hash = hash_key(entry->key);
   return entry->hash;
 }
 
-int hash_key(char* str) {
+unsigned int hash_key(char* str) {
   int i = 0;
-  int result = 0;
+  unsigned int hash = 5381;
   while(str[i] != '\0') 
-    result = 31 * result + str[i++];
-  return result;
+    hash = ((hash << 5) + hash) + str[i++];
+  return hash;
 }
 
 int putVal(Entry** map, Entry* entry, int map_length) {
@@ -24,15 +24,11 @@ int putVal(Entry** map, Entry* entry, int map_length) {
   } else {
     Entry* node = map[i];
     while(node) {
-      printf("%s\n", node->key);
       if(strcmp(node->key, entry->key) == 0) {
         node->value = entry->value;
         return 0;
       }
-      if(!node->next) {
-        node->next = entry;
-        return 0;
-      }
+      if(!node->next) node->next = entry;
       node = node->next;
     }
     return 0;
@@ -62,22 +58,21 @@ void printMap(Entry** map, int map_length) {
 }
 
 void printEntry(Entry* entry) {
-  printf("{ key: %s, value: %i }\n", entry->key, entry->value);
+  printf("{ key: %s, value: %i hash: %u }\n", entry->key, entry->value, entry->hash);
 }
 
 int main(void) {
   Entry* map[32];
   for(int i = 0; i < 32; ++i)
     map[i] = NULL;
+    
   Entry a = {"asdsa", 1, -1, NULL};
   Entry b = {"asdasdf", 1, -1, NULL};
   Entry c = {"dggsfs", 1, -1, NULL};
   Entry d = {"asdffe3", 1, -1, NULL};
   Entry e = {"aeefd", 1, -1, NULL};
   Entry f = {"asdffe3", 5, -1, NULL};
-  printf("aaa\n");
   putVal(map, &a, 32);
-  printf("aaa\n");
   putVal(map, &b, 32);
   putVal(map, &c, 32);
   putVal(map, &d, 32);
