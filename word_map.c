@@ -6,8 +6,16 @@
 Entry* entry(const char* key, unsigned int value) {
   Entry* result = malloc(sizeof(Entry));
   result->key = calloc(strlen(key) + 1, sizeof(char));
+  strcpy(result->key, key);
   result->value = value;
   return result;
+}
+
+void free_entry(Entry** entry) {
+  Entry* temp = *entry;
+  free(temp->key);
+  free(temp);
+  *entry = NULL;
 }
 
 unsigned int hash(Entry* entry) {
