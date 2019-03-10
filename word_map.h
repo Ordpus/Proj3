@@ -10,6 +10,7 @@ typedef struct entry {
 
 Entry* entry(const char* key, unsigned int value);
 void free_entry(Entry** entry);
+void free_entries_in_map(Entry** map, int map_length);
 unsigned int hash(Entry* entry);
 unsigned int hash_key(char* str);
 int putVal(Entry** map, Entry* entry, int map_length);

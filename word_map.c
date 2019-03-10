@@ -18,6 +18,17 @@ void free_entry(Entry** entry) {
   *entry = NULL;
 }
 
+void free_entries_in_map(Entry** map, int map_length) {
+  for(int i = 0; i < map_length; ++i) {
+    Entry* node = map[i];
+    while(node) {
+      Entry* temp = node;
+      node = node->next;
+      free_entry(&temp);
+    }
+  }
+}
+
 unsigned int hash(Entry* entry) {
   entry->hash = hash_key(entry->key);
   return entry->hash;
@@ -85,8 +96,9 @@ int main(void) {
   char* c = "dfas";
   char* b[5] = {"sadjgkl", "adjsklghs", "dsajfjh", "jsadhodh", "dhsakj"};
   for(int i = 0; i < 5; ++i) {
-    Entry entry = {b[1], i, 0, 0};
-    putVal(map, &entry, map_length);
+    Entry* ent = entry(b[i], 3);
+    putVal(map, ent, map_length);
   }
-  // printMap(map, map_length);
+  printMap(map, map_length);
+  free_entries_in_map(map, map_length);
 }
