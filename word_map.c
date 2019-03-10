@@ -10,14 +10,14 @@ unsigned int hash(Entry* entry) {
 unsigned int hash_key(char* str) {
   int i = 0;
   unsigned int hash = 5381;
-  while(str[i] != '\0') 
+  while(str[i] != '\0')
     hash = ((hash << 5) + hash) + str[i++];
   return hash;
 }
 
 int putVal(Entry** map, Entry* entry, int map_length) {
   hash(entry);
-  int i = (map_length - 1) & entry->hash; 
+  int i = (map_length - 1) & entry->hash;
   if(map[i] == NULL) {
     map[i] = entry;
     return 0;
@@ -65,7 +65,7 @@ int main(void) {
   Entry* map[32];
   for(int i = 0; i < 32; ++i)
     map[i] = NULL;
-    
+
   Entry a = {"asdsa", 1, -1, NULL};
   Entry b = {"asdasdf", 1, -1, NULL};
   Entry c = {"dggsfs", 1, -1, NULL};
