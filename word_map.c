@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include "word_map.h"
 #include <string.h>
+#include <stdlib.h>
+
+Entry* entry(const char* key, unsigned int value) {
+  Entry* result = malloc(sizeof(Entry));
+  result->key = calloc(strlen(key) + 1, sizeof(char));
+  result->value = value;
+  return result;
+}
 
 unsigned int hash(Entry* entry) {
   entry->hash = hash_key(entry->key);
@@ -10,14 +18,14 @@ unsigned int hash(Entry* entry) {
 unsigned int hash_key(char* str) {
   int i = 0;
   unsigned int hash = 5381;
-  while(str[i] != '\0')
+  while(str[i] != '\0') 
     hash = ((hash << 5) + hash) + str[i++];
   return hash;
 }
 
 int putVal(Entry** map, Entry* entry, int map_length) {
   hash(entry);
-  int i = (map_length - 1) & entry->hash;
+  int i = (map_length - 1) & entry->hash; 
   if(map[i] == NULL) {
     map[i] = entry;
     return 0;
@@ -58,26 +66,19 @@ void printMap(Entry** map, int map_length) {
 }
 
 void printEntry(Entry* entry) {
-  printf("{ key: %s, value: %i hash: %u }\n", entry->key, entry->value, entry->hash);
+  printf("{ key: %s, value: %i, hash: %u }\n", entry->key, entry->value, entry->hash);
 }
 
 int main(void) {
-  Entry* map[32];
-  for(int i = 0; i < 32; ++i)
+  int map_length = 64;
+  Entry* map[map_length];
+  for(int i = 0; i < map_length; ++i)
     map[i] = NULL;
-
-  Entry a = {"asdsa", 1, -1, NULL};
-  Entry b = {"asdasdf", 1, -1, NULL};
-  Entry c = {"dggsfs", 1, -1, NULL};
-  Entry d = {"asdffe3", 1, -1, NULL};
-  Entry e = {"aeefd", 1, -1, NULL};
-  Entry f = {"asdffe3", 5, -1, NULL};
-  putVal(map, &a, 32);
-  putVal(map, &b, 32);
-  putVal(map, &c, 32);
-  putVal(map, &d, 32);
-  putVal(map, &e, 32);
-  putVal(map, &f, 32);
-  putVal(map, &a, 32);
-  printMap(map, 32);
+  char* c = "dfas";
+  char* b[5] = {"sadjgkl", "adjsklghs", "dsajfjh", "jsadhodh", "dhsakj"};
+  for(int i = 0; i < 5; ++i) {
+    Entry entry = {b[1], i, 0, 0};
+    putVal(map, &entry, map_length);
+  }
+  // printMap(map, map_length);
 }

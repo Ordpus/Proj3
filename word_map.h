@@ -2,12 +2,13 @@
 #define WORD_MAP
 
 typedef struct entry {
-  char key[32];
-  int value;
+  char* key;
+  unsigned int value;
   unsigned int hash;
   struct entry* next;
 } Entry;
 
+Entry* entry(const char* key, unsigned int value);
 unsigned int hash(Entry* entry);
 unsigned int hash_key(char* str);
 int putVal(Entry** map, Entry* entry, int map_length);
