@@ -6,4 +6,6 @@ $(PROG): $(OBJ)
 	gcc $(OBJ) -o $(PROG)
 
 $(OBJ): $(SRC)
-	gcc $(SRC) -c
+
+clean:
+	rm -f $(OBJ) $(PROG) *~
