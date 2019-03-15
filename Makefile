@@ -8,4 +8,8 @@ $(PROG): $(OBJ)
 $(OBJ): $(SRC)
 
 clean:
+<<<<<<< HEAD
 	rm -f $(OBJ) $(PROG) *~
+=======
+	rm -f $(OBJ) $(PROG) *~
+>>>>>>> 1f055011d9a3cd373ef08f45533ad3e5350fa065
