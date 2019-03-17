@@ -20,11 +20,12 @@ int main(int argc, char *argv[], char* envp[]){
 
 	WORD* wordsList=NULL;//head of list of words
 	WORD* readWord;//read in word from file
+	
+	c=(char*)malloc(sizeof(char));//allocate for raed in char
 
 //=======read files from standard input============
 	if(!isatty(0)){
 		do{
-			c=(char*)malloc(sizeof(char));//allocate for raed in char
 			i = read(0, c, sizeof(char));
 
 			//if read in char is alphabet
@@ -62,7 +63,6 @@ int main(int argc, char *argv[], char* envp[]){
 		}
 		
 		do{
-			c=(char*)malloc(sizeof(char));//allocate for raed in char
 			i = read(f, c, sizeof(char));
 
 			//if read in char is alphabet
@@ -104,7 +104,6 @@ int main(int argc, char *argv[], char* envp[]){
 		}
 		
 		do{
-			c=(char*)malloc(sizeof(char));//allocate for raed in char
 			i = read(f, c, sizeof(char));
 
 			//if read in char is alphabet
